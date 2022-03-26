@@ -28,8 +28,9 @@ api.get("/api/simple/:id", async (ctx) => {
   ctx.response.body = updatedCount;
 });
 
+
+app.use(oakCors());
 app.use(api.routes());
 app.use(api.allowedMethods());
-app.use(oakCors());
 
 export { app };
