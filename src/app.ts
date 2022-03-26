@@ -1,10 +1,9 @@
-import { Application, Router } from "./depts.ts";
+import { oak, oakCors } from "./depts.ts";
 
 import { DataBase } from "./lib/mod.ts";
 
-const app = new Application();
-
-const api = new Router();
+const app = new oak.Application();
+const api = new oak.Router();
 
 const repository = await DataBase.getInstance();
 
@@ -31,5 +30,6 @@ api.get("/api/simple/:id", async (ctx) => {
 
 app.use(api.routes());
 app.use(api.allowedMethods());
+app.use(oakCors());
 
 export { app };

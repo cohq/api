@@ -1,4 +1,4 @@
-import type { Count } from "../types.ts";
+import { type Count } from "../types.ts";
 
 export class DataBase {
   private static _instance: DataBase;
