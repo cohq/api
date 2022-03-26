@@ -1,2 +1,2 @@
-export * from "./middlewares.ts"
-export * from "./routes.ts"
+export * from "./middlewares.ts";
+export * from "./routes.ts";
