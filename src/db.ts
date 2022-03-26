@@ -62,7 +62,7 @@ export async function createCount(key: string) {
 
 async function queryFauna<T>(
   query: string,
-  variables: { [key: string]: unknown }
+  variables: { [key: string]: unknown },
 ): Promise<T> {
   const res = await fetch("https://graphql.fauna.com/graphql", {
     method: "POST",
