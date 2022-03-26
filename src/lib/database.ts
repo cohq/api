@@ -32,7 +32,7 @@ export class DataBase {
       }
     `;
 
-    const data = await this.fauna<{ updateCount: Count }>(query, { ...count });
+    const data = await this.fauna<{ updateCount: Count }>(query, count);
 
     return data.updateCount;
   }
