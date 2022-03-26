@@ -2,7 +2,7 @@ import { Application } from "./depts.ts";
 
 const app = new Application();
 
-app.use(async (ctx) => {
+app.use((ctx) => {
   ctx.response.body = "Hello World";
 });
 
