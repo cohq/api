@@ -95,3 +95,5 @@ export class DataBase {
     return data as T;
   }
 }
+
+export const db = await DataBase.getInstance();

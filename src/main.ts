@@ -1,4 +1,12 @@
-import { app } from "./app.ts";
+import { Application, oakCors } from "./depts.ts";
+import { APIRouter } from "./api/mod.ts";
+
+const app = new Application();
+
+app.use(oakCors());
+
+app.use(APIRouter.routes());
+app.use(APIRouter.allowedMethods());
 
 app.addEventListener("listen", ({ hostname, port, secure }) => {
   const protocol = secure ? "https" : "http";
