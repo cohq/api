@@ -8,7 +8,8 @@ TODO
 
 ## Drivers
 
-- JavaScript (Node.js/Deno/Browser): [`cohq.js`](https://github.com/cohq/cohq.js)
+- JavaScript (Node.js/Deno/Browser):
+  [`cohq.js`](https://github.com/cohq/cohq.js)
 
 - Go: [`cohq/cogo`](https://github.com/cohq/cogo)
 
