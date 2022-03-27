@@ -76,7 +76,7 @@ export class DataBase {
       }
     `;
 
-    const response = await this.fauna<{ createCount: Count }>(query, { key });
+    const response = await this.fauna<{ createCount: IDCount }>(query, { key });
 
     return response.createCount;
   }
