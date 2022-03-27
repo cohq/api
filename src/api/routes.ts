@@ -1,7 +1,7 @@
 import { Router } from "../depts.ts";
 import { db } from "../lib/mod.ts";
 
-import { PRODUCTION } from "../config.ts";
+import { PRODUCTION, VERSION } from "../config.ts";
 
 const APIRouter = new Router();
 
@@ -20,6 +20,7 @@ APIRouter.get("/stats", async (ctx) => {
   ctx.response.body = {
     keysCreadted: data.length,
     totalRequests,
+    version: VERSION,
     data: PRODUCTION ? undefined : data,
   };
 });
