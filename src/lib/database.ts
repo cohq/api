@@ -1,4 +1,12 @@
-import { type Count } from "../types.ts";
+import { PRODUCTION } from "../config.ts";
+import { type Count, type IDCount, type Counts } from "../types.ts";
+
+export class FaunaDBError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "FaunaDBError";
+  }
+}
 
 export class DataBase {
   private static _instance: DataBase;
@@ -9,8 +17,8 @@ export class DataBase {
     const query = `
       query($key: String!){
         findCountByKey(key: $key) {
-          key
           _id
+          key
           value
         }
       }
@@ -21,11 +29,31 @@ export class DataBase {
     return data.findCountByKey;
   }
 
+  public async allCounts() {
+    const query = `
+      query {
+        allCounts {
+          data {
+            _id
+            key
+            value
+          }
+        }
+      }
+    `;
+
+    const { allCounts } = await this.fauna<{ allCounts: { data: Counts } }>(
+      query,
+      {}
+    );
+
+    return allCounts.data;
+  }
+
   public async updateCount(count: Count) {
     const query = `
       mutation($_id: ID!, $key: String!, $value: Int!) {
         updateCount(id: $_id, data: { key: $key, value: $value }) {
-          _id
           key
           value
         }
@@ -55,8 +83,6 @@ export class DataBase {
 
   public static async getInstance() {
     if (!DataBase._instance) {
-      const PRODUCTION = Deno.env.get("DENO_REGION");
-
       if (!PRODUCTION) {
         await import("https://deno.land/std@0.132.0/dotenv/load.ts");
       }
@@ -89,7 +115,7 @@ export class DataBase {
     const { data, errors } = await res.json();
 
     if (errors) {
-      throw new Error(errors.map((x: Error) => x.message).join("\n"));
+      throw new FaunaDBError(errors.map((x: Error) => x.message).join("\n"));
     }
 
     return data as T;

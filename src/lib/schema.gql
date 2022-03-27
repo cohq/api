@@ -5,4 +5,5 @@ type Count {
 
 type Query {
   findCountByKey(key: String!): Count
+  allCounts: [Count!]
 }
