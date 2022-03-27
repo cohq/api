@@ -34,7 +34,6 @@ export class DataBase {
       query {
         allCounts {
           data {
-            _id
             key
             value
           }
@@ -44,7 +43,6 @@ export class DataBase {
 
     const { allCounts } = await this.fauna<{ allCounts: { data: Counts } }>(
       query,
-      {},
     );
 
     return allCounts.data;
@@ -99,7 +97,10 @@ export class DataBase {
     return DataBase._instance;
   }
 
-  private async fauna<T>(query: string, variables: { [key: string]: unknown }) {
+  private async fauna<T>(
+    query: string,
+    variables: { [key: string]: unknown } = {},
+  ) {
     const res = await fetch("https://graphql.fauna.com/graphql", {
       method: "POST",
       headers: {

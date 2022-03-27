@@ -13,11 +13,15 @@ APIRouter.get("/", (ctx) => {
 });
 
 APIRouter.get("/stats", async (ctx) => {
-  if (PRODUCTION) {
-    ctx.response.body = { error: "Not available in production" };
-  } else {
-    ctx.response.body = await db.allCounts();
-  }
+  const data = await db.allCounts();
+
+  const totalRequests = data.reduce((acc, curr) => acc + curr.value, 0);
+
+  ctx.response.body = {
+    keysCreadted: data.length,
+    totalRequests,
+    data: PRODUCTION ? undefined : data,
+  };
 });
 
 APIRouter.get("/:id", async (ctx) => {
