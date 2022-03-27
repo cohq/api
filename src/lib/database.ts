@@ -40,7 +40,7 @@ export class DataBase {
   public async createCount(key: string) {
     const query = `
       mutation($key: String!) {
-        createCount(data: { key: $key }) {
+        createCount(data: { key: $key,value: 0 }) {
           _id
           key
           value

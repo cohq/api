@@ -3,7 +3,7 @@ import { db } from "../lib/mod.ts";
 
 const APIRouter = new Router();
 
-APIRouter.get("/simple/:id", async (ctx) => {
+APIRouter.get("/:id", async (ctx) => {
   const key = decodeURIComponent(ctx.params.id);
 
   const count = await db.findCount(key);
@@ -13,13 +13,13 @@ APIRouter.get("/simple/:id", async (ctx) => {
     return;
   }
 
-  const updatedCount = await db.updateCount({
+  const { _id, ...data } = await db.updateCount({
     _id: count._id,
     key,
     value: count.value + 1,
   });
 
-  ctx.response.body = updatedCount;
+  ctx.response.body = data;
 });
 
 export { APIRouter };
