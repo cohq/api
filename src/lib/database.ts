@@ -1,5 +1,5 @@
 import { PRODUCTION } from "../config.ts";
-import { type Count, type IDCount, type Counts } from "../types.ts";
+import { type Count, type Counts, type IDCount } from "../types.ts";
 
 export class FaunaDBError extends Error {
   constructor(message: string) {
@@ -44,7 +44,7 @@ export class DataBase {
 
     const { allCounts } = await this.fauna<{ allCounts: { data: Counts } }>(
       query,
-      {}
+      {},
     );
 
     return allCounts.data;
