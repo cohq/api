@@ -82,7 +82,7 @@ export class DataBase {
   public static async getInstance() {
     if (!DataBase._instance) {
       if (!PRODUCTION) {
-        await import("https://deno.land/std@0.137.0/dotenv/load.ts");
+        await import("https://deno.land/std@0.218.0/dotenv/load.ts");
       }
 
       const token = Deno.env.get("FAUNA_TOKEN");
